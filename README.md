@@ -1,6 +1,6 @@
 # Dashboard application with using React, TypeScript, Redux, Express and MS SQL
 
-## Install node_modules for Front-End and Back-End
+## Install _node_modules_ for Front-End and Back-End
 
 In the project directory, run:
 
@@ -8,18 +8,18 @@ In the project directory, run:
 
 ## Available Scripts
 
-Development mode:\
+Development mode:
 
 ### `npm run dev`
 
-Run server:\
+Run server:
 
 ### `npm run start`
 
-Run React app:\
+Run React app:
 
 ### `npm run client`
 
-Run Seeder.js:\
+Run Seeder.js:
 
 ### `npm run seed`
