@@ -15,13 +15,22 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Footer from "../../../components/footer";
 import { LoginSchema } from "../validation";
 import { Formik, Field } from "formik";
-import { login } from "../../../services/api-user-service";
+import { useTypedSelector } from "../../../hooks/useTypedSelector";
+import { useActions } from "../../../hooks/useActions";
+import Loader from "../../../components/loader";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Navigate } from "react-router-dom";
 
 const initialValues = { email: "", password: "", rememberMe: false };
 
 const theme = createTheme();
 
 const Login: React.FC = () => {
+  const { loading, isAuth } = useTypedSelector((store) => store.UserReducer);
+
+  const { LoginUser } = useActions();
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -39,7 +48,17 @@ const Login: React.FC = () => {
       email,
       password,
     };
+
+    LoginUser(newUser);
   };
+
+  if (loading) {
+    return <Loader />;
+  }
+
+  if (isAuth) {
+    return <Navigate to="/dashboard" />;
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -59,6 +78,7 @@ const Login: React.FC = () => {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
+          <ToastContainer autoClose={5000} />
           <Formik
             initialValues={initialValues}
             onSubmit={() => {}}
