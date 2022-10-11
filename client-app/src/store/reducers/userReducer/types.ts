@@ -7,9 +7,20 @@ export interface UserState {
 }
 
 export enum UserActionTypes {
+  START_REQUEST = "START_REQUEST",
   LOGIN_USER = "LOGIN_USER",
   LOGIN_USER_SUCCESS = "LOGIN_USER_SUCCESS",
   LOGIN_USER_ERROR = "LOGIN_USER_ERROR",
+  SERVER_USER_ERROR = "SERVER_USER_ERROR",
+}
+
+interface StartRequestAction {
+  type: UserActionTypes.START_REQUEST;
+}
+
+interface ServerErrorAction {
+  type: UserActionTypes.SERVER_USER_ERROR;
+  payload: string;
 }
 
 interface LoginUserAction {
@@ -27,6 +38,8 @@ interface LoginUserErrorAction {
 }
 
 export type UserActions =
+  | ServerErrorAction
+  | StartRequestAction
   | LoginUserAction
   | LoginUserErrorAction
   | LoginUserSuccessAction;

@@ -9,8 +9,9 @@ const initialState: UserState = {
 };
 
 const UserReducer = (state = initialState, action: UserActions): UserState => {
+  console.log("UserReducer", action);
   switch (action.type) {
-    case UserActionTypes.LOGIN_USER:
+    case UserActionTypes.START_REQUEST:
       return { ...state, loading: true };
     case UserActionTypes.LOGIN_USER_SUCCESS:
       return {
@@ -18,13 +19,13 @@ const UserReducer = (state = initialState, action: UserActions): UserState => {
         user: action.payload.decodedToken,
         loading: false,
         isAuth: true,
-        message: action.payload.message,
+        message: action.payload.Message,
       };
     case UserActionTypes.LOGIN_USER_ERROR:
       return {
         ...state,
         loading: false,
-        message: action.payload.message,
+        message: action.payload,
       };
     default:
       return state;

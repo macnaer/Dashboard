@@ -22,8 +22,13 @@ const User = {
 export async function login(user: any) {
   const data = await User.login(user)
     .then((responce: any) => {
+      const { Message, IsSuccess, IsAuth, Errors, Token } = responce;
       return {
-        responce,
+        Message,
+        IsSuccess,
+        IsAuth,
+        Errors,
+        Token,
       };
     })
     .catch((error: any) => {
