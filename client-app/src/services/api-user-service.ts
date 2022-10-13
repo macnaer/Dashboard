@@ -36,3 +36,16 @@ export async function login(user: any) {
     });
   return data;
 }
+
+export function setAccessToken(token: string) {
+  window.localStorage.setItem("accessToken", token);
+}
+
+export function getAccessToken(): null | string {
+  const token = window.localStorage.getItem("accessToken");
+  return token;
+}
+
+export function removeAccessToken(): void {
+  window.localStorage.removeItem("accessToken");
+}

@@ -9,7 +9,6 @@ const initialState: UserState = {
 };
 
 const UserReducer = (state = initialState, action: UserActions): UserState => {
-  console.log("UserReducer", action);
   switch (action.type) {
     case UserActionTypes.START_REQUEST:
       return { ...state, loading: true };
@@ -26,6 +25,14 @@ const UserReducer = (state = initialState, action: UserActions): UserState => {
         ...state,
         loading: false,
         message: action.payload,
+      };
+    case UserActionTypes.LOGOUT_USER:
+      return {
+        user: null,
+        message: null,
+        error: null,
+        loading: false,
+        isAuth: false,
       };
     default:
       return state;

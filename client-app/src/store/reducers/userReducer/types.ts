@@ -12,6 +12,11 @@ export enum UserActionTypes {
   LOGIN_USER_SUCCESS = "LOGIN_USER_SUCCESS",
   LOGIN_USER_ERROR = "LOGIN_USER_ERROR",
   SERVER_USER_ERROR = "SERVER_USER_ERROR",
+  LOGOUT_USER = "LOGOUT_USER",
+}
+
+interface LogoutUserAction {
+  type: UserActionTypes.LOGOUT_USER;
 }
 
 interface StartRequestAction {
@@ -38,6 +43,7 @@ interface LoginUserErrorAction {
 }
 
 export type UserActions =
+  | LogoutUserAction
   | ServerErrorAction
   | StartRequestAction
   | LoginUserAction
