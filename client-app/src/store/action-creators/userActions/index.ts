@@ -1,7 +1,11 @@
 import { UserActionTypes, UserActions } from "../../reducers/userReducer/types";
 import { Dispatch } from "redux";
 import { toast } from "react-toastify";
-import { login } from "../../../services/api-user-service";
+import {
+  login,
+  removeAccessToken,
+  setAccessToken,
+} from "../../../services/api-user-service";
 import jwtDecode from "jwt-decode";
 
 export const LoginUser = (user: any) => {
@@ -9,7 +13,6 @@ export const LoginUser = (user: any) => {
     try {
       dispatch({ type: UserActionTypes.START_REQUEST });
       const data = await login(user);
-      console.log("LoginUser data ", data);
       if (!data.IsSuccess) {
         dispatch({
           type: UserActionTypes.LOGIN_USER_ERROR,
@@ -17,7 +20,9 @@ export const LoginUser = (user: any) => {
         });
         toast.error(data.Message);
       } else {
-        AuthUser(data, dispatch);
+        const { Token, Message } = data;
+        setAccessToken(Token);
+        AuthUser(Token, Message, dispatch);
       }
     } catch (e) {
       dispatch({
@@ -29,11 +34,21 @@ export const LoginUser = (user: any) => {
   };
 };
 
-const AuthUser = (data: any, dispatch: Dispatch<UserActions>) => {
-  const { Token, Message, IsSuccess, IsAuth, Errors } = data;
-  const decodedToken = jwtDecode(Token) as any;
+export const LogoutUser = () => {
+  return async (dispatch: Dispatch<UserActions>) => {
+    removeAccessToken();
+    dispatch({ type: UserActionTypes.LOGOUT_USER });
+  };
+};
+
+export const AuthUser = (
+  token: string,
+  Message: string,
+  dispatch: Dispatch<UserActions>
+) => {
+  const decodedToken = jwtDecode(token) as any;
   dispatch({
     type: UserActionTypes.LOGIN_USER_SUCCESS,
-    payload: { decodedToken, Message, IsSuccess, IsAuth, Errors },
+    payload: { decodedToken, Message },
   });
 };
