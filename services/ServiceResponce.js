@@ -3,10 +3,18 @@ module.exports = class ServiceResponce {
   Token = null;
   Errors = null;
   IsSuccess = false;
-  constructor(message, token = null, errors = null, isSuccess = false) {
+  Payload = null;
+  constructor(
+    message,
+    token = null,
+    errors = null,
+    isSuccess = false,
+    payload = null
+  ) {
     this.Message = message;
     this.Token = token;
     this.Errors = errors;
     this.IsSuccess = isSuccess;
+    this.Payload = payload;
   }
 };
