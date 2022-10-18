@@ -18,18 +18,47 @@ exports.loginUser = async (req, res, next) => {
       res
         .status(200)
         .json(
-          new ServiceResponce("Logged in successfully.", token, null, true)
+          new ServiceResponce(
+            "Logged in successfully.",
+            token,
+            null,
+            true,
+            null
+          )
         );
     } else {
       res
         .status(404)
         .json(
-          new ServiceResponce("Login or password incorrect", null, null, false)
+          new ServiceResponce(
+            "Login or password incorrect",
+            null,
+            null,
+            false,
+            null
+          )
         );
     }
   } catch (error) {
     res
       .status(500)
-      .json(new ServiceResponce("Server error.", null, error, false));
+      .json(new ServiceResponce("Server error.", null, error, false, null));
+  }
+};
+
+exports.getAllUsers = async (req, res, next) => {
+  try {
+    const users = await User.findAll({
+      attributes: {
+        exclude: ["Password"],
+      },
+    });
+    res
+      .status(200)
+      .json(new ServiceResponce("All users loaded.", null, null, true, users));
+  } catch (error) {
+    res
+      .status(500)
+      .json(new ServiceResponce("Server error.", null, error, false, null));
   }
 };
