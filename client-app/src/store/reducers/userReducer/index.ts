@@ -6,6 +6,7 @@ const initialState: UserState = {
   error: null,
   loading: false,
   isAuth: false,
+  users: [],
 };
 
 const UserReducer = (state = initialState, action: UserActions): UserState => {
@@ -33,6 +34,14 @@ const UserReducer = (state = initialState, action: UserActions): UserState => {
         error: null,
         loading: false,
         isAuth: false,
+        users: [],
+      };
+    case UserActionTypes.ALL_USERS_LOADED:
+      return {
+        ...state,
+        loading: false,
+        message: action.payload.Message,
+        users: action.payload.Payload,
       };
     default:
       return state;

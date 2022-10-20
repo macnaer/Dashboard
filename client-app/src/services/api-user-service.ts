@@ -17,7 +17,25 @@ const requests = {
 
 const User = {
   login: (user: any) => requests.post(`/login`, user),
+  getAllUsers: () => requests.get(`/users`),
 };
+
+export async function getAllUsers() {
+  const data = await User.getAllUsers()
+    .then((responce: any) => {
+      console.log("getAllUsers ", responce);
+      const { Message, IsSuccess, Payload } = responce;
+      return {
+        Message,
+        IsSuccess,
+        Payload,
+      };
+    })
+    .catch((error: any) => {
+      return error.response.data;
+    });
+  return data;
+}
 
 export async function login(user: any) {
   const data = await User.login(user)
