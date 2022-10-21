@@ -2,6 +2,7 @@ import { UserActionTypes, UserActions } from "../../reducers/userReducer/types";
 import { Dispatch } from "redux";
 import { toast } from "react-toastify";
 import {
+  getAllUsers,
   login,
   removeAccessToken,
   setAccessToken,
@@ -29,7 +30,6 @@ export const LoginUser = (user: any) => {
         type: UserActionTypes.SERVER_USER_ERROR,
         payload: "Unknown error",
       });
-      console.log("Catch ", e);
     }
   };
 };
@@ -38,6 +38,34 @@ export const LogoutUser = () => {
   return async (dispatch: Dispatch<UserActions>) => {
     removeAccessToken();
     dispatch({ type: UserActionTypes.LOGOUT_USER });
+  };
+};
+
+export const GetAllUsers = () => {
+  return async (dispatch: Dispatch<UserActions>) => {
+    try {
+      dispatch({ type: UserActionTypes.START_REQUEST });
+      const data = await getAllUsers();
+      console.log("getAllUsers ", data);
+      if (!data.IsSuccess) {
+        dispatch({
+          type: UserActionTypes.SERVER_USER_ERROR,
+          payload: data.Message,
+        });
+        toast.error(data.Message);
+      } else {
+        const { Message, Payload } = data;
+        dispatch({
+          type: UserActionTypes.ALL_USERS_LOADED,
+          payload: { Message, Payload },
+        });
+      }
+    } catch (e) {
+      dispatch({
+        type: UserActionTypes.SERVER_USER_ERROR,
+        payload: "Unknown error",
+      });
+    }
   };
 };
 

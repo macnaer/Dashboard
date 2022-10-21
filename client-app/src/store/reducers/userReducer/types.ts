@@ -4,6 +4,7 @@ export interface UserState {
   loading: boolean;
   error: null | string;
   isAuth: boolean;
+  users: [];
 }
 
 export enum UserActionTypes {
@@ -13,6 +14,12 @@ export enum UserActionTypes {
   LOGIN_USER_ERROR = "LOGIN_USER_ERROR",
   SERVER_USER_ERROR = "SERVER_USER_ERROR",
   LOGOUT_USER = "LOGOUT_USER",
+  ALL_USERS_LOADED = "ALL_USERS_LOADED",
+}
+
+interface AllUsersLoadedActions {
+  type: UserActionTypes.ALL_USERS_LOADED;
+  payload: any;
 }
 
 interface LogoutUserAction {
@@ -43,6 +50,7 @@ interface LoginUserErrorAction {
 }
 
 export type UserActions =
+  | AllUsersLoadedActions
   | LogoutUserAction
   | ServerErrorAction
   | StartRequestAction

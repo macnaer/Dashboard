@@ -6,6 +6,7 @@ import DashboardLayout from "./containers/dashboardLayout";
 import NotFound from "./pages/notFound";
 import Users from "./pages/users";
 import DefaultPage from "./pages/dafaultPage";
+import Register from "./pages/auth/register";
 
 const App: React.FC = () => {
   const { isAuth, user } = useTypedSelector((store) => store.UserReducer);
@@ -18,6 +19,7 @@ const App: React.FC = () => {
             <Route path="/dashboard" element={<DashboardLayout />}>
               <Route index element={<DefaultPage />} />
               <Route path="users" element={<Users />} />
+              <Route path="register" element={<Register />} />
             </Route>
           )}
           {user.Role === "User" && (
