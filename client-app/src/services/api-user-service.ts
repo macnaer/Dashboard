@@ -18,6 +18,7 @@ const requests = {
 const User = {
   login: (user: any) => requests.post(`/login`, user),
   getAllUsers: () => requests.get(`/users`),
+  register: (user: any) => requests.post(`/register`, user),
 };
 
 export async function getAllUsers() {
@@ -29,6 +30,24 @@ export async function getAllUsers() {
         Message,
         IsSuccess,
         Payload,
+      };
+    })
+    .catch((error: any) => {
+      return error.response.data;
+    });
+  return data;
+}
+
+export async function register(user: any) {
+  const data = await User.register(user)
+    .then((responce: any) => {
+      const { Message, IsSuccess, IsAuth, Errors, Token } = responce;
+      return {
+        Message,
+        IsSuccess,
+        IsAuth,
+        Errors,
+        Token,
       };
     })
     .catch((error: any) => {

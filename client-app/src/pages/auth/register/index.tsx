@@ -12,10 +12,12 @@ import {
 } from "@mui/material";
 import { Field, Formik } from "formik";
 import React, { useState } from "react";
+import { useActions } from "../../../hooks/useActions";
 import { RegisterSchema } from "../validation";
 
 const Register: React.FC = () => {
   const [role, setRole] = useState("User");
+  const { RegisterUser } = useActions();
 
   const initialValues = {
     email: "",
@@ -37,6 +39,7 @@ const Register: React.FC = () => {
       Role: role,
     };
     console.log(newUser);
+    RegisterUser(newUser);
   };
   const handleRoleChange = (event: SelectChangeEvent) => {
     setRole(event.target.value as string);
