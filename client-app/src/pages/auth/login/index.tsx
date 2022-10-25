@@ -18,8 +18,6 @@ import { Formik, Field } from "formik";
 import { useTypedSelector } from "../../../hooks/useTypedSelector";
 import { useActions } from "../../../hooks/useActions";
 import Loader from "../../../components/loader";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { Navigate } from "react-router-dom";
 
 const initialValues = { email: "", password: "", rememberMe: false };
@@ -78,13 +76,12 @@ const Login: React.FC = () => {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <ToastContainer autoClose={5000} />
           <Formik
             initialValues={initialValues}
             onSubmit={() => {}}
             validationSchema={LoginSchema}
           >
-            {({ errors, touched, isSubmitting, isValid }) => (
+            {({ errors, touched, isSubmitting, isValid, dirty }) => (
               <Box
                 style={{ width: "100%", height: "326px" }}
                 component="form"
@@ -101,7 +98,6 @@ const Login: React.FC = () => {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
-                  autoFocus
                 />
                 {errors.email && touched.email ? (
                   <div style={{ color: "red" }}>{errors.email}</div>
@@ -125,7 +121,7 @@ const Login: React.FC = () => {
                   label="Remember me"
                 />
                 <Button
-                  disabled={!isValid}
+                  disabled={!(isValid && dirty)}
                   type="submit"
                   fullWidth
                   variant="contained"

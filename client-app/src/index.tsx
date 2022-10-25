@@ -5,6 +5,8 @@ import { Provider } from "react-redux";
 import { store } from "./store";
 import { getAccessToken } from "./services/api-user-service";
 import { AuthUser } from "./store/action-creators/userActions";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const token = getAccessToken();
 if (token) {
@@ -17,6 +19,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <Provider store={store}>
     <BrowserRouter>
+      <ToastContainer autoClose={5000} />
       <App />
     </BrowserRouter>
   </Provider>

@@ -14,3 +14,21 @@ export const LoginSchema = Yup.object().shape({
     .matches(passwordRegEx, "Password must contains A-Z, a-z, 0-9")
     .label("Password"),
 });
+
+export const RegisterSchema = Yup.object({
+  email: Yup.string()
+    .email("Must be a valid email")
+    .max(255)
+    .required("Email is required"),
+  firstName: Yup.string().max(255).required("First name is required"),
+  lastName: Yup.string().max(255).required("Last name is required"),
+  password: Yup.string()
+    .max(255)
+    .required("Password is required")
+    .matches(passwordRegEx, "Password must contains A-Z, a-z, 0-9"),
+  confirmPassword: Yup.string()
+    .max(255)
+    .required("Password is required")
+    .matches(passwordRegEx, "Password must contains A-Z, a-z, 0-9")
+    .oneOf([Yup.ref("password"), null], "Password must match."),
+});
