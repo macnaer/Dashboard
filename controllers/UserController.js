@@ -4,6 +4,8 @@ const bcrypt = require("bcrypt");
 const Constants = require("../data/config/constants");
 const ServiceResponce = require("../services/ServiceResponce");
 
+var salt = bcrypt.genSaltSync(10);
+
 exports.loginUser = async (req, res, next) => {
   console.log("req.body ", req.body.email);
   try {
@@ -35,6 +37,44 @@ exports.loginUser = async (req, res, next) => {
             null,
             null,
             false,
+            null
+          )
+        );
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json(new ServiceResponce("Server error.", null, error, false, null));
+  }
+};
+
+exports.register = async (req, res, next) => {
+  const { Name, Surname, Email, Password, Role } = req.body;
+  try {
+    const user = await User.findOne({ where: { Email } });
+    if (user) {
+      res
+        .status(400)
+        .json(
+          new ServiceResponce("User alredy exists", null, null, false, null)
+        );
+    } else {
+      const newUser = new User({
+        Name,
+        Surname,
+        Email,
+        Password: bcrypt.hashSync(Password, salt),
+        Role,
+      });
+      await newUser.save();
+      res
+        .status(200)
+        .json(
+          new ServiceResponce(
+            "User successfully created.",
+            null,
+            null,
+            true,
             null
           )
         );

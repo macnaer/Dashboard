@@ -21,7 +21,7 @@ const UserReducer = (state = initialState, action: UserActions): UserState => {
         isAuth: true,
         message: action.payload.Message,
       };
-    case UserActionTypes.LOGIN_USER_ERROR:
+    case UserActionTypes.FINISH_REQUEST:
       return {
         ...state,
         loading: false,

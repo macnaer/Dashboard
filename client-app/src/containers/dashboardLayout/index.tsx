@@ -20,7 +20,7 @@ import Footer from "../../components/footer";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { Button, Menu, MenuItem } from "@mui/material";
 import { useActions } from "../../hooks/useActions";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 const drawerWidth: number = 240;
 
@@ -144,7 +144,11 @@ const DashboardLayout: React.FC = () => {
                   "aria-labelledby": "basic-button",
                 }}
               >
-                <MenuItem>Profile</MenuItem>
+                <MenuItem>
+                  <Link style={{ textDecoration: "none" }} to="profile">
+                    Profile
+                  </Link>
+                </MenuItem>
                 <MenuItem onClick={Logout}>Logout</MenuItem>
               </Menu>
             </div>

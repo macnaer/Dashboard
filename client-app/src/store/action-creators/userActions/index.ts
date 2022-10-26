@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import {
   getAllUsers,
   login,
+  register,
   removeAccessToken,
   setAccessToken,
 } from "../../../services/api-user-service";
@@ -34,6 +35,33 @@ export const LoginUser = (user: any) => {
   };
 };
 
+export const RegisterUser = (user: any) => {
+  return async (dispatch: Dispatch<UserActions>) => {
+    try {
+      dispatch({ type: UserActionTypes.START_REQUEST });
+      const data = await register(user);
+      if (!data.IsSuccess) {
+        dispatch({
+          type: UserActionTypes.FINISH_REQUEST,
+          payload: data.Message,
+        });
+        toast.error(data.Message);
+      } else {
+        dispatch({
+          type: UserActionTypes.FINISH_REQUEST,
+          payload: data.Message,
+        });
+        toast.success(data.Message);
+      }
+    } catch (e) {
+      dispatch({
+        type: UserActionTypes.SERVER_USER_ERROR,
+        payload: "Unknown error",
+      });
+    }
+  };
+};
+
 export const LogoutUser = () => {
   return async (dispatch: Dispatch<UserActions>) => {
     removeAccessToken();
@@ -46,7 +74,6 @@ export const GetAllUsers = () => {
     try {
       dispatch({ type: UserActionTypes.START_REQUEST });
       const data = await getAllUsers();
-      console.log("getAllUsers ", data);
       if (!data.IsSuccess) {
         dispatch({
           type: UserActionTypes.SERVER_USER_ERROR,
