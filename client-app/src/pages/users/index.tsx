@@ -34,36 +34,35 @@ const Users: React.FC = () => {
     GetAllUsers();
   }, []);
 
+  const rows = users;
   if (loading) {
     return <Loader />;
+  } else {
+    return (
+      <Box sx={{ display: "flex", width: "100%" }}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sx={{ mb: 2, textAlign: "right" }}>
+            <Button variant="contained">
+              <Link
+                style={{ textDecoration: "none", color: "white" }}
+                to="/dashboard/register"
+              >
+                Add new user
+              </Link>
+            </Button>
+          </Grid>
+          <Grid item xs={12} sx={{ height: "700px" }}>
+            <DataGrid
+              rows={rows}
+              columns={columns}
+              pageSize={10}
+              rowsPerPageOptions={[5]}
+              checkboxSelection
+            />
+          </Grid>
+        </Grid>
+      </Box>
+    );
   }
-  const rows = users;
-
-  return (
-    <Box sx={{ display: "flex", width: "100%" }}>
-      <Grid container spacing={2}>
-        <Grid item xs={12} sx={{ mb: 2, textAlign: "right" }}>
-          <Button variant="contained">
-            <Link
-              style={{ textDecoration: "none", color: "white" }}
-              to="/dashboard/register"
-            >
-              Add new user
-            </Link>
-          </Button>
-        </Grid>
-        <Grid item xs={12} sx={{ height: "700px" }}>
-          <DataGrid
-            rows={rows}
-            columns={columns}
-            pageSize={5}
-            rowsPerPageOptions={[5]}
-            checkboxSelection
-          />
-        </Grid>
-      </Grid>
-    </Box>
-  );
 };
-
 export default Users;
