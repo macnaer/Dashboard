@@ -6,6 +6,11 @@ const ServiceResponce = require("../services/ServiceResponce");
 
 var salt = bcrypt.genSaltSync(10);
 
+const generateAccessToken = (id, Name, Surname, Email, Role) => {
+  const token = jwt.sign({ id, Name, Surname, Email, Role }, Constants.Secret);
+  return token;
+};
+
 exports.loginUser = async (req, res, next) => {
   console.log("req.body ", req.body.email);
   try {
@@ -13,10 +18,8 @@ exports.loginUser = async (req, res, next) => {
     if (user && bcrypt.compareSync(req.body.password, user.Password)) {
       const { id, Name, Surname, Email, Role } = user;
 
-      const token = jwt.sign(
-        { id, Name, Surname, Email, Role },
-        Constants.Secret
-      );
+      const token = generateAccessToken(id, Name, Surname, Email, Role);
+
       res
         .status(200)
         .json(
@@ -96,6 +99,46 @@ exports.getAllUsers = async (req, res, next) => {
     res
       .status(200)
       .json(new ServiceResponce("All users loaded.", null, null, true, users));
+  } catch (error) {
+    res
+      .status(500)
+      .json(new ServiceResponce("Server error.", null, error, false, null));
+  }
+};
+
+exports.updateProfile = async (req, res, next) => {
+  const userId = req.body.id;
+  const updatedUser = {
+    Name: req.body.name,
+    Surname: req.body.surname,
+    Email: req.body.email,
+  };
+
+  try {
+    const result = await User.update(updatedUser, { where: { id: userId } });
+    if (!result) {
+      res
+        .status(400)
+        .json(
+          new ServiceResponce("Profile not updated.", null, null, false, null)
+        );
+    } else {
+      const user = await User.findOne({ where: { id: userId } });
+      const { id, Name, Surname, Email, Role } = user;
+
+      const token = generateAccessToken(id, Name, Surname, Email, Role);
+      res
+        .status(200)
+        .json(
+          new ServiceResponce(
+            "Profile successfully updated.",
+            token,
+            null,
+            true,
+            null
+          )
+        );
+    }
   } catch (error) {
     res
       .status(500)

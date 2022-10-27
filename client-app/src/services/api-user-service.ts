@@ -19,12 +19,30 @@ const User = {
   login: (user: any) => requests.post(`/login`, user),
   getAllUsers: () => requests.get(`/users`),
   register: (user: any) => requests.post(`/register`, user),
+  updateProfile: (user: any) => requests.post(`/updateProfile`, user),
 };
+
+export async function updateProfile(user: any) {
+  const data = await User.updateProfile(user)
+    .then((responce: any) => {
+      const { Message, IsSuccess, IsAuth, Errors, Token } = responce;
+      return {
+        Message,
+        IsSuccess,
+        IsAuth,
+        Errors,
+        Token,
+      };
+    })
+    .catch((error: any) => {
+      return error.response.data;
+    });
+  return data;
+}
 
 export async function getAllUsers() {
   const data = await User.getAllUsers()
     .then((responce: any) => {
-      console.log("getAllUsers ", responce);
       const { Message, IsSuccess, Payload } = responce;
       return {
         Message,
