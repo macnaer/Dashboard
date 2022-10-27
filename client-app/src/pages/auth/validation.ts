@@ -32,3 +32,12 @@ export const RegisterSchema = Yup.object({
     .matches(passwordRegEx, "Password must contains A-Z, a-z, 0-9")
     .oneOf([Yup.ref("password"), null], "Password must match."),
 });
+
+export const ChangeProfileSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required")
+    .label("Email address"),
+  name: Yup.string().required("Name is required").label("Name"),
+  surname: Yup.string().required("Surname is required").label("Name"),
+});
