@@ -2,6 +2,7 @@ import { UserActionTypes, UserActions } from "../../reducers/userReducer/types";
 import { Dispatch } from "redux";
 import { toast } from "react-toastify";
 import {
+  changePassword,
   getAllUsers,
   login,
   register,
@@ -28,6 +29,33 @@ export const LoginUser = (user: any) => {
         AuthUser(Token, Message, dispatch);
       }
     } catch (e) {
+      dispatch({
+        type: UserActionTypes.SERVER_USER_ERROR,
+        payload: "Unknown error",
+      });
+    }
+  };
+};
+
+export const ChangePassword = (passwords: any) => {
+  return async (dispatch: Dispatch<UserActions>) => {
+    try {
+      dispatch({ type: UserActionTypes.START_REQUEST });
+      const data = await changePassword(passwords);
+      if (!data.IsSuccess) {
+        dispatch({
+          type: UserActionTypes.FINISH_REQUEST,
+          payload: data.Message,
+        });
+        toast.error(data.Message);
+      } else {
+        dispatch({
+          type: UserActionTypes.FINISH_REQUEST,
+          payload: data.Message,
+        });
+        toast.success(data.Message);
+      }
+    } catch (error) {
       dispatch({
         type: UserActionTypes.SERVER_USER_ERROR,
         payload: "Unknown error",

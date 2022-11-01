@@ -41,3 +41,19 @@ export const ChangeProfileSchema = Yup.object().shape({
   name: Yup.string().required("Name is required").label("Name"),
   surname: Yup.string().required("Surname is required").label("Name"),
 });
+
+export const ChangeProfilePasswordSchema = Yup.object().shape({
+  oldPassword: Yup.string()
+    .max(255)
+    .required("Old password is required")
+    .matches(passwordRegEx, "Password must contains A-Z, a-z, 0-9"),
+  newPassword: Yup.string()
+    .max(255)
+    .required("New password is required")
+    .matches(passwordRegEx, "Password must contains A-Z, a-z, 0-9"),
+  confirmPassword: Yup.string()
+    .max(255)
+    .required("Cobfirm password is required")
+    .matches(passwordRegEx, "Password must contains A-Z, a-z, 0-9")
+    .oneOf([Yup.ref("newPassword"), null], "Password must match."),
+});

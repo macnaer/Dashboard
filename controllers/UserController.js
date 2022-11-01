@@ -12,7 +12,6 @@ const generateAccessToken = (id, Name, Surname, Email, Role) => {
 };
 
 exports.loginUser = async (req, res, next) => {
-  console.log("req.body ", req.body.email);
   try {
     const user = await User.findOne({ where: { Email: req.body.email } });
     if (user && bcrypt.compareSync(req.body.password, user.Password)) {
@@ -139,6 +138,55 @@ exports.updateProfile = async (req, res, next) => {
           )
         );
     }
+  } catch (error) {
+    res
+      .status(500)
+      .json(new ServiceResponce("Server error.", null, error, false, null));
+  }
+};
+
+exports.updatePassword = async (req, res) => {
+  console.log("updatePassword ", req.body);
+  try {
+    const user = await User.findOne({ where: { id: req.body.id } });
+    if (!user) {
+      return res
+        .status(404)
+        .json(
+          new ServiceResponce("User not updated.", null, null, false, null)
+        );
+    }
+    if (req.body.newPassword !== req.body.confirmPassword) {
+      return res
+        .status(404)
+        .json(
+          new ServiceResponce("Passwords must match.", null, null, false, null)
+        );
+    }
+
+    if (!bcrypt.compareSync(req.body.oldPassword, user.Password)) {
+      return res
+        .status(404)
+        .json(
+          new ServiceResponce("Invalid password.", null, null, false, null)
+        );
+    }
+
+    await User.update(
+      { ...User, Password: bcrypt.hashSync(req.body.newPassword, salt) },
+      { where: { id: req.body.id } }
+    );
+    return res
+      .status(200)
+      .json(
+        new ServiceResponce(
+          "Passwords successfilly updated.",
+          null,
+          null,
+          true,
+          null
+        )
+      );
   } catch (error) {
     res
       .status(500)
