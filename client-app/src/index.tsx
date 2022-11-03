@@ -3,14 +3,19 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./store";
-import { getAccessToken } from "./services/api-user-service";
-import { AuthUser } from "./store/action-creators/userActions";
+import { getAccessToken, getSelectedUser } from "./services/api-user-service";
+import { AuthUser, SetSelectedUser } from "./store/action-creators/userActions";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const token = getAccessToken();
 if (token) {
   AuthUser(token, "Loaded from index", store.dispatch);
+}
+
+const selectedUser = getSelectedUser();
+if (selectedUser) {
+  SetSelectedUser(selectedUser, store.dispatch);
 }
 
 const root = ReactDOM.createRoot(

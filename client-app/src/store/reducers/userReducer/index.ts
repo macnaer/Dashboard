@@ -6,6 +6,7 @@ const initialState: UserState = {
   error: null,
   loading: false,
   isAuth: false,
+  selectedUser: null,
   users: [],
 };
 
@@ -27,6 +28,8 @@ const UserReducer = (state = initialState, action: UserActions): UserState => {
         loading: false,
         message: action.payload,
       };
+    case UserActionTypes.SELECT_USER:
+      return { ...state, selectedUser: action.payload };
     case UserActionTypes.LOGOUT_USER:
       return {
         user: null,
@@ -34,6 +37,7 @@ const UserReducer = (state = initialState, action: UserActions): UserState => {
         error: null,
         loading: false,
         isAuth: false,
+        selectedUser: null,
         users: [],
       };
     case UserActionTypes.ALL_USERS_LOADED:

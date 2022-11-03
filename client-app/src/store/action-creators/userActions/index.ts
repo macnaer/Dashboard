@@ -7,10 +7,13 @@ import {
   login,
   register,
   removeAccessToken,
+  removeSelectedUser,
   setAccessToken,
+  setSelectedUser,
   updateProfile,
 } from "../../../services/api-user-service";
 import jwtDecode from "jwt-decode";
+import { type } from "os";
 
 export const LoginUser = (user: any) => {
   return async (dispatch: Dispatch<UserActions>) => {
@@ -34,6 +37,13 @@ export const LoginUser = (user: any) => {
         payload: "Unknown error",
       });
     }
+  };
+};
+
+export const SelectedUser = (user: any) => {
+  return async (dispatch: Dispatch<UserActions>) => {
+    dispatch({ type: UserActionTypes.SELECT_USER, payload: user });
+    setSelectedUser(user);
   };
 };
 
@@ -121,6 +131,7 @@ export const RegisterUser = (user: any) => {
 export const LogoutUser = () => {
   return async (dispatch: Dispatch<UserActions>) => {
     removeAccessToken();
+    removeSelectedUser();
     dispatch({ type: UserActionTypes.LOGOUT_USER });
   };
 };
@@ -161,5 +172,12 @@ export const AuthUser = (
   dispatch({
     type: UserActionTypes.LOGIN_USER_SUCCESS,
     payload: { decodedToken, Message },
+  });
+};
+
+export const SetSelectedUser = (user: any, dispatch: Dispatch<UserActions>) => {
+  dispatch({
+    type: UserActionTypes.SELECT_USER,
+    payload: user,
   });
 };

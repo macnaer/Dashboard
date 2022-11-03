@@ -1,4 +1,5 @@
 import axios from "axios";
+import { workerData } from "worker_threads";
 
 const instance = axios.create({
   baseURL: "http://localhost:5000/api/User",
@@ -123,4 +124,19 @@ export function getAccessToken(): null | string {
 
 export function removeAccessToken(): void {
   window.localStorage.removeItem("accessToken");
+}
+
+export function setSelectedUser(user: any) {
+  user = JSON.stringify(user);
+  window.localStorage.setItem("selectedUser", user);
+}
+
+export function getSelectedUser() {
+  let selectedUser: any = window.localStorage.getItem("selectedUser");
+  selectedUser = JSON.parse(selectedUser);
+  return selectedUser;
+}
+
+export function removeSelectedUser() {
+  window.localStorage.removeItem("selectedUser");
 }
