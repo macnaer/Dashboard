@@ -193,3 +193,40 @@ exports.updatePassword = async (req, res) => {
       .json(new ServiceResponce("Server error.", null, error, false, null));
   }
 };
+
+exports.updateUser = async (req, res, next) => {
+  const userId = req.body.id;
+  const updatedUser = {
+    Name: req.body.name,
+    Surname: req.body.surname,
+    Email: req.body.email,
+    Role: req.body.role,
+  };
+
+  try {
+    const result = await User.update(updatedUser, { where: { id: userId } });
+    if (!result) {
+      res
+        .status(400)
+        .json(
+          new ServiceResponce("Profile not updated.", null, null, false, null)
+        );
+    } else {
+      res
+        .status(200)
+        .json(
+          new ServiceResponce(
+            "User successfully updated.",
+            null,
+            null,
+            true,
+            null
+          )
+        );
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json(new ServiceResponce("Server error.", null, error, false, null));
+  }
+};

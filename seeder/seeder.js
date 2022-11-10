@@ -19,7 +19,7 @@ const Seed = async () => {
     await new User({
       Name: "Tomas",
       Surname: "Andersen",
-      Email: "rom@email.com",
+      Email: "tom@email.com",
       Role: "User",
       Password: bcrypt.hashSync("Qwerty-1", salt),
     }).save();

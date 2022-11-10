@@ -21,6 +21,7 @@ const User = {
   getAllUsers: () => requests.get(`/users`),
   register: (user: any) => requests.post(`/register`, user),
   updateProfile: (user: any) => requests.post(`/updateProfile`, user),
+  updateUser: (user: any) => requests.post(`/updateUser`, user),
   changePassword: (passwords: any) =>
     requests.post(`/changePassword`, passwords),
 };
@@ -45,6 +46,24 @@ export async function changePassword(passwords: any) {
 
 export async function updateProfile(user: any) {
   const data = await User.updateProfile(user)
+    .then((responce: any) => {
+      const { Message, IsSuccess, IsAuth, Errors, Token } = responce;
+      return {
+        Message,
+        IsSuccess,
+        IsAuth,
+        Errors,
+        Token,
+      };
+    })
+    .catch((error: any) => {
+      return error.response.data;
+    });
+  return data;
+}
+
+export async function updateUser(user: any) {
+  const data = await User.updateUser(user)
     .then((responce: any) => {
       const { Message, IsSuccess, IsAuth, Errors, Token } = responce;
       return {

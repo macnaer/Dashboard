@@ -11,6 +11,7 @@ import {
   setAccessToken,
   setSelectedUser,
   updateProfile,
+  updateUser,
 } from "../../../services/api-user-service";
 import jwtDecode from "jwt-decode";
 import { type } from "os";
@@ -90,6 +91,29 @@ export const UpdateUserProfile = (user: any) => {
         removeAccessToken();
         setAccessToken(Token);
         AuthUser(Token, Message, dispatch);
+        toast.success(data.Message);
+      }
+    } catch (e) {
+      dispatch({
+        type: UserActionTypes.SERVER_USER_ERROR,
+        payload: "Unknown error",
+      });
+    }
+  };
+};
+
+export const UpdateUser = (user: any) => {
+  return async (dispatch: Dispatch<UserActions>) => {
+    try {
+      dispatch({ type: UserActionTypes.START_REQUEST });
+      const data = await updateUser(user);
+      if (!data.IsSuccess) {
+        dispatch({
+          type: UserActionTypes.FINISH_REQUEST,
+          payload: data.Message,
+        });
+        toast.error(data.Message);
+      } else {
         toast.success(data.Message);
       }
     } catch (e) {
