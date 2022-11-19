@@ -38,7 +38,6 @@ const Register: React.FC = () => {
       Password: data.get("password"),
       Role: role,
     };
-    console.log(newUser);
     RegisterUser(newUser);
   };
   const handleRoleChange = (event: SelectChangeEvent) => {

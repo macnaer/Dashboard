@@ -146,7 +146,6 @@ exports.updateProfile = async (req, res, next) => {
 };
 
 exports.updatePassword = async (req, res) => {
-  console.log("updatePassword ", req.body);
   try {
     const user = await User.findOne({ where: { id: req.body.id } });
     if (!user) {
