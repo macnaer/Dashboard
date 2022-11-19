@@ -8,6 +8,7 @@ import {
   Grid,
   MenuItem,
   Select,
+  Switch,
   TextField,
 } from "@mui/material";
 import { Box } from "@mui/system";
@@ -25,12 +26,18 @@ const initialProfileValues = {
 };
 
 const UserDetails: React.FC = () => {
+  const [block, setBlock] = React.useState(true);
+
   const { selectedUser } = useTypedSelector((store) => store.UserReducer);
   const { UpdateUserProfile } = useActions();
   initialProfileValues.name = selectedUser.Name;
   initialProfileValues.surname = selectedUser.Surname;
   initialProfileValues.email = selectedUser.Email;
   initialProfileValues.role = selectedUser.Role;
+
+  const handleBlock = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setBlock(event.target.checked);
+  };
 
   const changeProfile = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -142,6 +149,41 @@ const UserDetails: React.FC = () => {
           </Card>
         )}
       </Formik>
+      <Card>
+        <Box style={{ width: "100%" }} sx={{ mt: 1 }}>
+          <CardHeader
+            style={{ color: "red" }}
+            subheader={"Block or delete user"}
+            title="Danger zone"
+          ></CardHeader>
+          <CardContent>
+            <Grid container spacing={3}>
+              <Grid item md={6} xs={12}>
+                <Box display="flex" justifyContent="flex-end">
+                  {" "}
+                  <span
+                    style={{
+                      justifyContent: "center",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    Block/unblcok user
+                  </span>
+                  <Switch
+                    checked={block}
+                    onChange={handleBlock}
+                    inputProps={{ "aria-label": "controlled" }}
+                  />
+                </Box>
+              </Grid>
+              <Grid item md={6} xs={12}>
+                Delete user
+              </Grid>
+            </Grid>
+          </CardContent>
+        </Box>
+      </Card>
     </>
   );
 };
