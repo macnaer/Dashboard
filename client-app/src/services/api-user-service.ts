@@ -1,5 +1,4 @@
 import axios from "axios";
-import { workerData } from "worker_threads";
 
 const instance = axios.create({
   baseURL: "http://localhost:5000/api/User",

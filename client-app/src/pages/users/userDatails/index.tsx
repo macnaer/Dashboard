@@ -3,11 +3,6 @@ import {
   Card,
   CardContent,
   CardHeader,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
   Divider,
   FormControl,
   Grid,
@@ -18,7 +13,7 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { Field, Formik } from "formik";
-import React, { useState } from "react";
+import React from "react";
 import { useActions } from "../../../hooks/useActions";
 import { useTypedSelector } from "../../../hooks/useTypedSelector";
 import { ChangeProfileSchema } from "../validation";
@@ -31,29 +26,14 @@ const initialProfileValues = {
 };
 
 const UserDetails: React.FC = () => {
-  const [block, setBlock] = useState(true);
-  const [open, setOpen] = React.useState(false);
+  const [block, setBlock] = React.useState(true);
 
   const { selectedUser } = useTypedSelector((store) => store.UserReducer);
-  const { UpdateUser } = useActions();
+  const { UpdateUserProfile } = useActions();
   initialProfileValues.name = selectedUser.Name;
   initialProfileValues.surname = selectedUser.Surname;
   initialProfileValues.email = selectedUser.Email;
   initialProfileValues.role = selectedUser.Role;
-
-  const handleDelete = () => {
-    setOpen(true);
-    const userId = selectedUser.id;
-    console.log(userId);
-  };
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   const handleBlock = (event: React.ChangeEvent<HTMLInputElement>) => {
     setBlock(event.target.checked);
@@ -75,7 +55,7 @@ const UserDetails: React.FC = () => {
       email,
       role,
     };
-    UpdateUser(updatedUser);
+    console.log(updatedUser);
   };
 
   return (
@@ -86,7 +66,7 @@ const UserDetails: React.FC = () => {
         onSubmit={() => {}}
       >
         {({ errors, touched, isSubmitting, isValid, dirty }) => (
-          <Card sx={{ mb: 3 }}>
+          <Card>
             <Box
               onSubmit={changeProfile}
               component="form"
@@ -180,14 +160,15 @@ const UserDetails: React.FC = () => {
             <Grid container spacing={3}>
               <Grid item md={6} xs={12}>
                 <Box display="flex" justifyContent="flex-end">
+                  {" "}
                   <span
                     style={{
                       justifyContent: "center",
-                      alignItems: "center",
                       display: "flex",
+                      alignItems: "center",
                     }}
                   >
-                    You can block user.
+                    Block/unblcok user
                   </span>
                   <Switch
                     checked={block}
@@ -197,48 +178,7 @@ const UserDetails: React.FC = () => {
                 </Box>
               </Grid>
               <Grid item md={6} xs={12}>
-                <Box display="flex" justifyContent="flex-end">
-                  <span
-                    style={{
-                      justifyContent: "center",
-                      alignItems: "center",
-                      display: "flex",
-                      marginRight: "20px",
-                    }}
-                  >
-                    You can delete user.
-                  </span>
-                  <div>
-                    <Button
-                      variant="contained"
-                      color="warning"
-                      onClick={handleClickOpen}
-                    >
-                      Delete
-                    </Button>
-                    <Dialog
-                      open={open}
-                      onClose={handleClose}
-                      aria-labelledby="alert-dialog-title"
-                      aria-describedby="alert-dialog-description"
-                    >
-                      <DialogTitle id="alert-dialog-title">
-                        {"Delete user"}
-                      </DialogTitle>
-                      <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                          Dou you want to delete user {selectedUser.Name}?
-                        </DialogContentText>
-                      </DialogContent>
-                      <DialogActions>
-                        <Button onClick={handleClose}>Cancel</Button>
-                        <Button onClick={handleDelete} autoFocus>
-                          Yes
-                        </Button>
-                      </DialogActions>
-                    </Dialog>
-                  </div>
-                </Box>
+                Delete user
               </Grid>
             </Grid>
           </CardContent>

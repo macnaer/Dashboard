@@ -14,7 +14,6 @@ import {
   updateUser,
 } from "../../../services/api-user-service";
 import jwtDecode from "jwt-decode";
-import { type } from "os";
 
 export const LoginUser = (user: any) => {
   return async (dispatch: Dispatch<UserActions>) => {

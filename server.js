@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 const UserRoutes = require("./routes/userRoutes");
+const CategoryRoutes = require("./routes/categoryRoutes");
 const Database = require("./data/config/database");
 
 Database.authenticate()
@@ -22,5 +23,6 @@ app.use(
 );
 
 app.use("/api/User", UserRoutes);
+app.use("/api/Category", CategoryRoutes);
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
