@@ -9,12 +9,15 @@ import {
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Loader from "../../components/loader";
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 const Categories: React.FC = () => {
   const { GetAllCategories } = useActions();
-  const { categories } = useTypedSelector((store) => store.CategoryReducer);
+  const { categories, loading } = useTypedSelector(
+    (store) => store.CategoryReducer
+  );
   const [isRedirect, setIsRedirect] = useState(false);
 
   useEffect(() => {
@@ -22,8 +25,7 @@ const Categories: React.FC = () => {
   }, []);
 
   const columns: GridColDef[] = [
-    { field: "Id", headerName: "Id", width: 100 },
-    { field: "Category", headerName: "Category", width: 230 },
+    { field: "Name", headerName: "Category", width: 230 },
     {
       field: "createdAt",
 
@@ -52,7 +54,8 @@ const Categories: React.FC = () => {
               (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
             );
 
-          const userData = thisRow;
+          const categoryData = thisRow;
+          EditCategory(categoryData);
         };
 
         return <Button onClick={onClick}>Edit</Button>;
@@ -60,8 +63,15 @@ const Categories: React.FC = () => {
     },
   ];
 
-  const rows: any = categories;
+  const EditCategory = (category: any) => {
+    console.log("EditCategory ", category);
+  };
 
+  const rows = categories;
+
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <Box sx={{ display: "flex", width: "100%" }}>
       <Grid container spacing={2}>
@@ -81,7 +91,6 @@ const Categories: React.FC = () => {
             columns={columns}
             pageSize={5}
             rowsPerPageOptions={[5]}
-            checkboxSelection
           />
         </Grid>
       </Grid>

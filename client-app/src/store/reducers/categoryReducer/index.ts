@@ -23,7 +23,6 @@ const CategoryReducer = (
         loading: false,
       };
     case CategoryActionTypes.ALL_CATEGORIES_LOADED:
-      console.log("ALL_CATEGORIES_LOADED ", action.payload);
       return {
         ...state,
         loading: false,

@@ -5,7 +5,6 @@ exports.getAllCategories = async (req, res, next) => {
   try {
     const categories = await Category.findAll();
     if (categories) {
-      console.log("Inside => ", categories);
       res
         .status(200)
         .json(

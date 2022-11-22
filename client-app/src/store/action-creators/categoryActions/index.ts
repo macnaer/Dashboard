@@ -11,7 +11,6 @@ export const GetAllCategories = () => {
     try {
       dispatch({ type: CategoryActionTypes.START_REQUEST });
       const data = await getAllCategories();
-      console.log("GetAllCategories => ", data);
       if (!data.IsSuccess) {
         dispatch({
           type: CategoryActionTypes.FINISH_REQUEST,
