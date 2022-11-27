@@ -31,3 +31,9 @@ export const GetAllCategories = () => {
     }
   };
 };
+
+export const SelectedCategory = (category: any) => {
+  return async (dispatch: Dispatch<CategoryActions>) => {
+    dispatch({ type: CategoryActionTypes.SELECT_CATEGORY, payload: category });
+  };
+};

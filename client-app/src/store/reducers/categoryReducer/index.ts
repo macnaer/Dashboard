@@ -5,6 +5,7 @@ const initialState: CategoryState = {
   error: null,
   loading: false,
   categories: [],
+  selectedCategory: null,
 };
 
 const CategoryReducer = (
@@ -28,6 +29,11 @@ const CategoryReducer = (
         loading: false,
         message: action.payload.Message,
         categories: action.payload.Payload,
+      };
+    case CategoryActionTypes.SELECT_CATEGORY:
+      return {
+        ...state,
+        selectedCategory: action.payload,
       };
     default:
       return state;

@@ -8,13 +8,13 @@ import {
 } from "@mui/x-data-grid";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import Loader from "../../components/loader";
-import { useActions } from "../../hooks/useActions";
-import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { Link, Navigate } from "react-router-dom";
+import Loader from "../../../components/loader";
+import { useActions } from "../../../hooks/useActions";
+import { useTypedSelector } from "../../../hooks/useTypedSelector";
 
 const Categories: React.FC = () => {
-  const { GetAllCategories } = useActions();
+  const { GetAllCategories, SelectedCategory } = useActions();
   const { categories, loading } = useTypedSelector(
     (store) => store.CategoryReducer
   );
@@ -56,6 +56,7 @@ const Categories: React.FC = () => {
 
           const categoryData = thisRow;
           EditCategory(categoryData);
+          setIsRedirect(true);
         };
 
         return <Button onClick={onClick}>Edit</Button>;
@@ -64,7 +65,7 @@ const Categories: React.FC = () => {
   ];
 
   const EditCategory = (category: any) => {
-    console.log("EditCategory ", category);
+    SelectedCategory(category);
   };
 
   const rows = categories;
@@ -72,6 +73,11 @@ const Categories: React.FC = () => {
   if (loading) {
     return <Loader />;
   }
+
+  if (isRedirect) {
+    return <Navigate to="/dashboard/categoryDetails" />;
+  }
+
   return (
     <Box sx={{ display: "flex", width: "100%" }}>
       <Grid container spacing={2}>

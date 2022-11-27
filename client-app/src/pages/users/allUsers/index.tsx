@@ -94,7 +94,6 @@ const Users: React.FC = () => {
             columns={columns}
             pageSize={5}
             rowsPerPageOptions={[5]}
-            checkboxSelection
           />
         </Grid>
       </Grid>

@@ -3,6 +3,7 @@ export interface CategoryState {
   message: null | string;
   loading: boolean;
   error: null | string;
+  selectedCategory: any;
 }
 
 export enum CategoryActionTypes {
@@ -10,6 +11,12 @@ export enum CategoryActionTypes {
   FINISH_REQUEST = "FINISH_REQUEST",
   ALL_CATEGORIES_LOADED = "ALL_USERS_LOADED",
   SERVER_USER_ERROR = "SERVER_USER_ERROR",
+  SELECT_CATEGORY = "SELECT_CATEGORY",
+}
+
+interface selectedCategoryActions {
+  type: CategoryActionTypes.SELECT_CATEGORY;
+  payload: any;
 }
 
 interface AllCategoriesActions {
@@ -31,6 +38,7 @@ interface ServerErrorAction {
 }
 
 export type CategoryActions =
+  | selectedCategoryActions
   | FinishRequestAction
   | AllCategoriesActions
   | ServerErrorAction
