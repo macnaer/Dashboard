@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import { Field, Formik } from "formik";
 import React from "react";
+import { useActions } from "../../../hooks/useActions";
 import { useTypedSelector } from "../../../hooks/useTypedSelector";
 import { ChangeCategorySchema } from "../validation";
 
@@ -26,15 +27,16 @@ const CategoryDetails: React.FC = () => {
     (store) => store.CategoryReducer
   );
 
+  const { UpdateCategory } = useActions();
+
   initialValues.name = selectedCategory.Name;
   const changeCategory = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const name = data.get("name");
-    console.log("Chnaged name ", name);
+    const name: any = data.get("name");
+    UpdateCategory(name);
   };
 
-  console.log(selectedCategory);
   return (
     <>
       <Formik

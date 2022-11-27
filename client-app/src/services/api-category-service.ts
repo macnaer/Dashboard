@@ -17,7 +17,27 @@ const requests = {
 
 const Category = {
   getAllCategories: () => requests.get(`/allCategories`),
+  updateCategory: (name: any) => requests.post(`/updateCategory`, name),
 };
+
+export async function updateCategory(name: string) {
+  const data = await Category.updateCategory(name)
+    .then((responce: any) => {
+      const { Message, IsSuccess, IsAuth, Errors, Token, Payload } = responce;
+      return {
+        Message,
+        IsSuccess,
+        IsAuth,
+        Errors,
+        Token,
+        Payload,
+      };
+    })
+    .catch((error: any) => {
+      return error.response.data;
+    });
+  return data;
+}
 
 export async function getAllCategories() {
   const data = await Category.getAllCategories()
