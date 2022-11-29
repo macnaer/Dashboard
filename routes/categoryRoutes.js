@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
 // Import controller methods
-const { getAllCategories } = require("../controllers/CategoryController");
+const {
+  getAllCategories,
+  updateCategory,
+} = require("../controllers/CategoryController");
 
 router.get("/allCategories", getAllCategories);
-router.post("/updateCategory", (req, res, next) => {
-  console.log(req.body);
-});
+router.post("/updateCategory", updateCategory);
 
 module.exports = router;

@@ -6,6 +6,7 @@ import { Dispatch } from "redux";
 import { toast } from "react-toastify";
 import {
   getAllCategories,
+  setSelectedCategory,
   updateCategory,
 } from "../../../services/api-category-service";
 
@@ -35,12 +36,11 @@ export const GetAllCategories = () => {
   };
 };
 
-export const UpdateCategory = (name: string) => {
-  console.log("Actions => ", name);
+export const UpdateCategory = (category: any) => {
   return async (dispatch: Dispatch<CategoryActions>) => {
     try {
       dispatch({ type: CategoryActionTypes.START_REQUEST });
-      const data = await updateCategory(name);
+      const data = await updateCategory(category);
       if (!data.IsSuccess) {
         dispatch({
           type: CategoryActionTypes.FINISH_REQUEST,
@@ -49,9 +49,11 @@ export const UpdateCategory = (name: string) => {
         toast.error(data.Message);
       } else {
         dispatch({
-          type: CategoryActionTypes.ALL_CATEGORIES_LOADED,
-          payload: data,
+          type: CategoryActionTypes.CATEGORY_UPDATED,
+          payload: data.Message,
         });
+        setSelectedCategory(category);
+        toast.success(data.Message);
       }
     } catch (e) {
       dispatch({
@@ -60,6 +62,16 @@ export const UpdateCategory = (name: string) => {
       });
     }
   };
+};
+
+export const SetSelectedCategory = (
+  category: any,
+  dispatch: Dispatch<CategoryActions>
+) => {
+  dispatch({
+    type: CategoryActionTypes.SELECT_CATEGORY,
+    payload: category,
+  });
 };
 
 export const SelectedCategory = (category: any) => {

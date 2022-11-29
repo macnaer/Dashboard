@@ -29,3 +29,43 @@ exports.getAllCategories = async (req, res, next) => {
       .json(new ServiceResponce("Server error.", null, error, false, null));
   }
 };
+
+exports.updateCategory = async (req, res, next) => {
+  console.log(req.body);
+  const id = req.body.id;
+  const Name = req.body.name;
+  const updatedCategory = {
+    id,
+    Name,
+  };
+  try {
+    console.log("updatedCategory ", updatedCategory);
+    const result = await Category.update(updatedCategory, {
+      where: { id: id },
+    });
+    console.log("result -> ", result);
+    if (!result) {
+      res
+        .status(400)
+        .json(
+          new ServiceResponce("Category not updated.", null, null, false, null)
+        );
+    } else {
+      res
+        .status(200)
+        .json(
+          new ServiceResponce(
+            "Category successfully updated.",
+            null,
+            null,
+            true,
+            null
+          )
+        );
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json(new ServiceResponce("Server error.", null, error, false, null));
+  }
+};

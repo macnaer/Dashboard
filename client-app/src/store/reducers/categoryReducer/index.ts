@@ -35,6 +35,11 @@ const CategoryReducer = (
         ...state,
         selectedCategory: action.payload,
       };
+    case CategoryActionTypes.CATEGORY_UPDATED:
+      return {
+        ...state,
+        message: action.payload,
+      };
     default:
       return state;
   }

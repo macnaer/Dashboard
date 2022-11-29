@@ -14,6 +14,7 @@ import {
   updateUser,
 } from "../../../services/api-user-service";
 import jwtDecode from "jwt-decode";
+import { removeSelectedCategory } from "../../../services/api-category-service";
 
 export const LoginUser = (user: any) => {
   return async (dispatch: Dispatch<UserActions>) => {
@@ -155,6 +156,7 @@ export const LogoutUser = () => {
   return async (dispatch: Dispatch<UserActions>) => {
     removeAccessToken();
     removeSelectedUser();
+    removeSelectedCategory();
     dispatch({ type: UserActionTypes.LOGOUT_USER });
   };
 };

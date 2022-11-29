@@ -27,6 +27,7 @@ const CategoryDetails: React.FC = () => {
     (store) => store.CategoryReducer
   );
 
+  console.log(selectedCategory);
   const { UpdateCategory } = useActions();
 
   initialValues.name = selectedCategory.Name;
@@ -34,7 +35,12 @@ const CategoryDetails: React.FC = () => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const name: any = data.get("name");
-    UpdateCategory(name);
+    const updatedCategory: any = {
+      id: selectedCategory.id,
+      name,
+      createdAt: selectedCategory.createdAt,
+    };
+    UpdateCategory(updatedCategory);
   };
 
   return (

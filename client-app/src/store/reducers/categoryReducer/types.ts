@@ -12,9 +12,14 @@ export enum CategoryActionTypes {
   ALL_CATEGORIES_LOADED = "ALL_USERS_LOADED",
   SERVER_USER_ERROR = "SERVER_USER_ERROR",
   SELECT_CATEGORY = "SELECT_CATEGORY",
+  CATEGORY_UPDATED = "CATEGORY_UPDATED",
 }
 
-interface selectedCategoryActions {
+interface CategoryUpdatedActions {
+  type: CategoryActionTypes.CATEGORY_UPDATED;
+  payload: string;
+}
+interface SelectedCategoryActions {
   type: CategoryActionTypes.SELECT_CATEGORY;
   payload: any;
 }
@@ -38,7 +43,8 @@ interface ServerErrorAction {
 }
 
 export type CategoryActions =
-  | selectedCategoryActions
+  | CategoryUpdatedActions
+  | SelectedCategoryActions
   | FinishRequestAction
   | AllCategoriesActions
   | ServerErrorAction

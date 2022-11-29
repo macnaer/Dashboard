@@ -20,7 +20,7 @@ const Category = {
   updateCategory: (name: any) => requests.post(`/updateCategory`, name),
 };
 
-export async function updateCategory(name: string) {
+export async function updateCategory(name: any) {
   const data = await Category.updateCategory(name)
     .then((responce: any) => {
       const { Message, IsSuccess, IsAuth, Errors, Token, Payload } = responce;
@@ -56,4 +56,19 @@ export async function getAllCategories() {
       return error.response.data;
     });
   return data;
+}
+
+export function setSelectedCategory(category: any) {
+  category = JSON.stringify(category);
+  window.localStorage.setItem("selectedCategory", category);
+}
+
+export function getSelectedCategory() {
+  let selectedCategory: any = window.localStorage.getItem("selectedCategory");
+  selectedCategory = JSON.parse(selectedCategory);
+  return selectedCategory;
+}
+
+export function removeSelectedCategory() {
+  window.localStorage.removeItem("selectedCategory");
 }
