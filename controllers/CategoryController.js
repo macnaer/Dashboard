@@ -104,3 +104,36 @@ exports.deleteCategory = async (req, res, next) => {
       .json(new ServiceResponce("Server error.", null, error, false, null));
   }
 };
+
+exports.getCategoryById = async (req, res, next) => {
+  const { id } = req.body;
+  console.log("getCategoryById ", id);
+  try {
+    const category = await Category.findOne({
+      where: { id: id },
+    });
+    if (category) {
+      res
+        .status(200)
+        .json(
+          new ServiceResponce(
+            "Category successfully loaded.",
+            null,
+            null,
+            true,
+            category
+          )
+        );
+    } else {
+      res
+        .status(200)
+        .json(
+          new ServiceResponce("Category not found.", null, null, false, null)
+        );
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json(new ServiceResponce("Server error.", null, error, false, null));
+  }
+};
