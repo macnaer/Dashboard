@@ -6,7 +6,7 @@
     "description": ""
   },
   "host": "localhost:5000",
-  "basePath": "/api/",
+  "basePath": "/api",
   "schemes": [
     "http"
   ],
@@ -275,6 +275,13 @@
             "description": "Internal Server Error"
           }
         }
+      }
+    },
+    "/Category/deleteCategory": {
+      "delete": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
       }
     }
   }

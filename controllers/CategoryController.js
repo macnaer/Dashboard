@@ -69,3 +69,38 @@ exports.updateCategory = async (req, res, next) => {
       .json(new ServiceResponce("Server error.", null, error, false, null));
   }
 };
+
+exports.deleteCategory = async (req, res, next) => {
+  console.log("deleteCategory ", req.body);
+  const { id } = req.body;
+  try {
+    const category = await Category.findOne({ where: { id: req.body.id } });
+    if (category) {
+      console.log("category ===> ", category);
+      const deletedUser = await Category.destroy({
+        where: { id: req.body.id },
+      });
+      res
+        .status(200)
+        .json(
+          new ServiceResponce(
+            "Category successfully deleted.",
+            null,
+            null,
+            true,
+            null
+          )
+        );
+    } else {
+      res
+        .status(200)
+        .json(
+          new ServiceResponce("Category not found.", null, null, false, null)
+        );
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json(new ServiceResponce("Server error.", null, error, false, null));
+  }
+};
