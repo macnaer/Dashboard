@@ -229,3 +229,100 @@ exports.updateUser = async (req, res, next) => {
       .json(new ServiceResponce("Server error.", null, error, false, null));
   }
 };
+
+exports.getUserById = async (req, res, next) => {
+  try {
+    const user = await User.findOne({
+      where: { id: req.body.id },
+      attributes: {
+        exclude: ["Password"],
+      },
+    });
+    if (user) {
+      res
+        .status(200)
+        .json(
+          new ServiceResponce(
+            "User successfully loaded.",
+            null,
+            null,
+            true,
+            user
+          )
+        );
+    } else {
+      res
+        .status(404)
+        .json(new ServiceResponce("User not found", null, null, false, null));
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json(new ServiceResponce("Server error.", null, error, false, null));
+  }
+};
+
+exports.getUserByEmail = async (req, res, next) => {
+  console.log("getUserByEmail ", req.body);
+  try {
+    const user = await User.findOne({
+      where: { email: req.body.email },
+      attributes: {
+        exclude: ["Password"],
+      },
+    });
+    if (user) {
+      res
+        .status(200)
+        .json(
+          new ServiceResponce(
+            "User successfully loaded.",
+            null,
+            null,
+            true,
+            user
+          )
+        );
+    } else {
+      res
+        .status(404)
+        .json(new ServiceResponce("User not found", null, null, false, null));
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json(new ServiceResponce("Server error.", null, error, false, null));
+  }
+};
+
+exports.deleteUserById = async (req, res, next) => {
+  console.log("deleteCategory ", req.body);
+  const { id } = req.body;
+  try {
+    const user = await User.findOne({ where: { id: req.body.id } });
+    if (user) {
+      const deletedUser = await User.destroy({
+        where: { id: req.body.id },
+      });
+      res
+        .status(200)
+        .json(
+          new ServiceResponce(
+            "User successfully deleted.",
+            null,
+            null,
+            true,
+            null
+          )
+        );
+    } else {
+      res
+        .status(200)
+        .json(new ServiceResponce("User not found.", null, null, false, null));
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json(new ServiceResponce("Server error.", null, error, false, null));
+  }
+};
