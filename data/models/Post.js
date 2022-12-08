@@ -19,8 +19,12 @@ const Post = db.define("Posts", {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  Category: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
 });
-Post.belongsTo(Category, { foreignKey: "id" });
+// Post.belongsTo(Category, { foreignKey: "id" });
 
 Post.sync()
   .then(() => console.log("Table Category created."))
