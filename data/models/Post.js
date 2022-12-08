@@ -15,6 +15,10 @@ const Post = db.define("Posts", {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  Image: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
 });
 Post.belongsTo(Category, { foreignKey: "id" });
 
