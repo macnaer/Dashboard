@@ -5,13 +5,13 @@
     "title": "REST API",
     "description": ""
   },
-  "host": "localhost:5000",
-  "basePath": "/api",
+  "host": "localhost:3000",
+  "basePath": "/",
   "schemes": [
     "http"
   ],
   "paths": {
-    "/User/login": {
+    "/login": {
       "post": {
         "description": "",
         "parameters": [
@@ -44,7 +44,7 @@
         }
       }
     },
-    "/User/users": {
+    "/users": {
       "get": {
         "description": "",
         "parameters": [],
@@ -58,7 +58,7 @@
         }
       }
     },
-    "/User/register": {
+    "/register": {
       "post": {
         "description": "",
         "parameters": [
@@ -100,7 +100,7 @@
         }
       }
     },
-    "/User/updateProfile": {
+    "/updateProfile": {
       "post": {
         "description": "",
         "parameters": [
@@ -139,7 +139,7 @@
         }
       }
     },
-    "/User/updateUser": {
+    "/updateUser": {
       "post": {
         "description": "",
         "parameters": [
@@ -181,7 +181,7 @@
         }
       }
     },
-    "/User/changePassword": {
+    "/changePassword": {
       "post": {
         "description": "",
         "parameters": [
@@ -220,7 +220,7 @@
         }
       }
     },
-    "/User/getUserById": {
+    "/getUserById": {
       "get": {
         "description": "",
         "parameters": [],
@@ -237,7 +237,7 @@
         }
       }
     },
-    "/User/getUserByEmail": {
+    "/getUserByEmail": {
       "get": {
         "description": "",
         "parameters": [],
@@ -254,7 +254,7 @@
         }
       }
     },
-    "/User/deleteUserById": {
+    "/deleteUserById": {
       "delete": {
         "description": "",
         "parameters": [
@@ -281,14 +281,46 @@
         }
       }
     },
-    "/Post/createPost": {
+    "/createPost": {
       "post": {
         "description": "",
-        "parameters": [],
-        "responses": {}
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "Title": {
+                  "example": "any"
+                },
+                "ShortDescription": {
+                  "example": "any"
+                },
+                "Description": {
+                  "example": "any"
+                },
+                "CategoryId": {
+                  "example": "any"
+                },
+                "Image": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
       }
     },
-    "/Category/allCategories": {
+    "/allCategories": {
       "get": {
         "description": "",
         "parameters": [],
@@ -305,7 +337,7 @@
         }
       }
     },
-    "/Category/updateCategory": {
+    "/updateCategory": {
       "post": {
         "description": "",
         "parameters": [
@@ -338,7 +370,7 @@
         }
       }
     },
-    "/Category/deleteCategory": {
+    "/deleteCategory": {
       "delete": {
         "description": "",
         "parameters": [
@@ -365,7 +397,7 @@
         }
       }
     },
-    "/Category/getCategoryById": {
+    "/getCategoryById": {
       "get": {
         "description": "",
         "parameters": [],
