@@ -5,13 +5,13 @@
     "title": "REST API",
     "description": ""
   },
-  "host": "localhost:3000",
-  "basePath": "/",
+  "host": "localhost:5000",
+  "basePath": "/api",
   "schemes": [
     "http"
   ],
   "paths": {
-    "/login": {
+    "/User/login": {
       "post": {
         "description": "",
         "parameters": [
@@ -44,7 +44,7 @@
         }
       }
     },
-    "/users": {
+    "/User/users": {
       "get": {
         "description": "",
         "parameters": [],
@@ -58,7 +58,7 @@
         }
       }
     },
-    "/register": {
+    "/User/register": {
       "post": {
         "description": "",
         "parameters": [
@@ -100,7 +100,7 @@
         }
       }
     },
-    "/updateProfile": {
+    "/User/updateProfile": {
       "post": {
         "description": "",
         "parameters": [
@@ -139,7 +139,7 @@
         }
       }
     },
-    "/updateUser": {
+    "/User/updateUser": {
       "post": {
         "description": "",
         "parameters": [
@@ -181,7 +181,7 @@
         }
       }
     },
-    "/changePassword": {
+    "/User/changePassword": {
       "post": {
         "description": "",
         "parameters": [
@@ -220,7 +220,7 @@
         }
       }
     },
-    "/getUserById": {
+    "/User/getUserById": {
       "get": {
         "description": "",
         "parameters": [],
@@ -237,7 +237,7 @@
         }
       }
     },
-    "/getUserByEmail": {
+    "/User/getUserByEmail": {
       "get": {
         "description": "",
         "parameters": [],
@@ -254,7 +254,7 @@
         }
       }
     },
-    "/deleteUserById": {
+    "/User/deleteUserById": {
       "delete": {
         "description": "",
         "parameters": [
@@ -281,7 +281,7 @@
         }
       }
     },
-    "/createPost": {
+    "/Post/createPost": {
       "post": {
         "description": "",
         "parameters": [
@@ -320,7 +320,7 @@
         }
       }
     },
-    "/allCategories": {
+    "/Category/allCategories": {
       "get": {
         "description": "",
         "parameters": [],
@@ -337,7 +337,7 @@
         }
       }
     },
-    "/updateCategory": {
+    "/Category/updateCategory": {
       "post": {
         "description": "",
         "parameters": [
@@ -370,7 +370,7 @@
         }
       }
     },
-    "/deleteCategory": {
+    "/Category/deleteCategory": {
       "delete": {
         "description": "",
         "parameters": [
@@ -397,7 +397,7 @@
         }
       }
     },
-    "/getCategoryById": {
+    "/Category/getCategoryById": {
       "get": {
         "description": "",
         "parameters": [],
