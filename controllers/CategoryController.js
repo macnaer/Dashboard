@@ -39,11 +39,9 @@ exports.updateCategory = async (req, res, next) => {
     Name,
   };
   try {
-    console.log("updatedCategory ", updatedCategory);
     const result = await Category.update(updatedCategory, {
       where: { id: id },
     });
-    console.log("result -> ", result);
     if (!result) {
       res
         .status(400)
