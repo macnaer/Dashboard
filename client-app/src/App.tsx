@@ -11,6 +11,7 @@ import Profile from "./pages/auth/profile";
 import UserDetails from "./pages/users/userDatails";
 import Categories from "./pages/categories/allCategories";
 import CategoryDetails from "./pages/categories/categoryDetails.js";
+import NewCategory from "./pages/categories/newCategory";
 
 const App: React.FC = () => {
   const { isAuth, user } = useTypedSelector((store) => store.UserReducer);
@@ -28,6 +29,7 @@ const App: React.FC = () => {
               <Route path="userDetails" element={<UserDetails />} />
               <Route path="categories" element={<Categories />} />
               <Route path="categoryDetails" element={<CategoryDetails />} />
+              <Route path="newCategory" element={<NewCategory />} />
             </Route>
           )}
           {user.Role === "User" && (

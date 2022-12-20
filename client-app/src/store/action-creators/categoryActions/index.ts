@@ -5,6 +5,7 @@ import {
 import { Dispatch } from "redux";
 import { toast } from "react-toastify";
 import {
+  createCategory,
   getAllCategories,
   setSelectedCategory,
   updateCategory,
@@ -26,6 +27,34 @@ export const GetAllCategories = () => {
           type: CategoryActionTypes.ALL_CATEGORIES_LOADED,
           payload: data,
         });
+      }
+    } catch (e) {
+      dispatch({
+        type: CategoryActionTypes.SERVER_USER_ERROR,
+        payload: "Unknown error",
+      });
+    }
+  };
+};
+
+export const CreateCategory = (category: any) => {
+  return async (dispatch: Dispatch<CategoryActions>) => {
+    try {
+      dispatch({ type: CategoryActionTypes.START_REQUEST });
+      const data = await createCategory(category);
+      console.log(data);
+      if (!data.IsSuccess) {
+        dispatch({
+          type: CategoryActionTypes.FINISH_REQUEST,
+          payload: data.Message,
+        });
+        toast.error(data.Message);
+      } else {
+        dispatch({
+          type: CategoryActionTypes.CATEGORY_UPDATED,
+          payload: data.Message,
+        });
+        toast.success(data.Message);
       }
     } catch (e) {
       dispatch({

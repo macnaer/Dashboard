@@ -85,9 +85,9 @@ const Categories: React.FC = () => {
           <Button variant="contained">
             <Link
               style={{ textDecoration: "none", color: "white" }}
-              to="/dashboard/register"
+              to="/dashboard/newCategory"
             >
-              Add new user
+              Add new category
             </Link>
           </Button>
         </Grid>

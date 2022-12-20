@@ -18,7 +18,27 @@ const requests = {
 const Category = {
   getAllCategories: () => requests.get(`/allCategories`),
   updateCategory: (name: any) => requests.post(`/updateCategory`, name),
+  CreateCategory: (category: any) => requests.post(`/createCategory`, category),
 };
+
+export async function createCategory(category: any) {
+  const data = await Category.CreateCategory(category)
+    .then((responce: any) => {
+      const { Message, IsSuccess, IsAuth, Errors, Token, Payload } = responce;
+      return {
+        Message,
+        IsSuccess,
+        IsAuth,
+        Errors,
+        Token,
+        Payload,
+      };
+    })
+    .catch((error: any) => {
+      return error.response.data;
+    });
+  return data;
+}
 
 export async function updateCategory(name: any) {
   const data = await Category.updateCategory(name)
