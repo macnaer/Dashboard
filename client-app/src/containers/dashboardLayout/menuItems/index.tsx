@@ -33,6 +33,14 @@ export const adminMenu = (
         <ListItemText primary="Categories" />
       </Link>
     </ListItemButton>
+    <ListItemButton>
+      <ListItemIcon>
+        <DashboardIcon />
+      </ListItemIcon>
+      <Link style={{ textDecoration: "none" }} to="posts">
+        <ListItemText primary="Posts" />
+      </Link>
+    </ListItemButton>
   </React.Fragment>
 );
 
@@ -52,6 +60,14 @@ export const userMenu = (
       </ListItemIcon>
       <Link style={{ textDecoration: "none" }} to="categories">
         <ListItemText primary="Categories" />
+      </Link>
+    </ListItemButton>
+    <ListItemButton>
+      <ListItemIcon>
+        <DashboardIcon />
+      </ListItemIcon>
+      <Link style={{ textDecoration: "none" }} to="posts">
+        <ListItemText primary="Posts" />
       </Link>
     </ListItemButton>
   </React.Fragment>

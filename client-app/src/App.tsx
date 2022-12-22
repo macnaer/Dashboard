@@ -12,6 +12,7 @@ import UserDetails from "./pages/users/userDatails";
 import Categories from "./pages/categories/allCategories";
 import CategoryDetails from "./pages/categories/categoryDetails.js";
 import NewCategory from "./pages/categories/newCategory";
+import GetAllPosts from "./pages/posts/allPosts";
 
 const App: React.FC = () => {
   const { isAuth, user } = useTypedSelector((store) => store.UserReducer);
@@ -30,6 +31,7 @@ const App: React.FC = () => {
               <Route path="categories" element={<Categories />} />
               <Route path="categoryDetails" element={<CategoryDetails />} />
               <Route path="newCategory" element={<NewCategory />} />
+              <Route path="posts" element={<GetAllPosts />} />
             </Route>
           )}
           {user.Role === "User" && (
@@ -37,6 +39,7 @@ const App: React.FC = () => {
               <Route index element={<DefaultPage />} />
               <Route path="profile" element={<Profile />} />
               <Route path="categories" element={<Categories />} />
+              <Route path="posts" element={<GetAllPosts />} />
             </Route>
           )}
         </>
