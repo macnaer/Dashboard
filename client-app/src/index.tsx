@@ -12,7 +12,7 @@ import { SetSelectedCategory } from "./store/action-creators/categoryActions";
 
 const token = getAccessToken();
 if (token) {
-  AuthUser(token, "Loaded from index", store.dispatch);
+  AuthUser(token, "Loaded from home page", store.dispatch);
 }
 
 const selectedUser = getSelectedUser();
