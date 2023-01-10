@@ -72,7 +72,6 @@ exports.getAllPosts = async (req, res, next) => {
 
 exports.getPostById = async (req, res, next) => {
   const { id } = req.body;
-  console.log("getPostById ", id);
   try {
     const post = await Post.findOne({
       where: { id: id },

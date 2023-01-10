@@ -5,6 +5,7 @@ import {
   CardActions,
   CardContent,
   CardMedia,
+  Grid,
   Typography,
 } from "@mui/material";
 import React, { useEffect } from "react";
@@ -28,6 +29,16 @@ const GetAllPosts: React.FC = () => {
   const rows = posts.map((post: any) => {
     return (
       <Box key={post.id} sx={{ flexGrow: 1, textAlign: "center", mb: 6 }}>
+        <Grid item xs={12} sx={{ mb: 2, textAlign: "right" }}>
+          <Button variant="contained">
+            <Link
+              style={{ textDecoration: "none", color: "white" }}
+              to="/dashboard/newPost"
+            >
+              Add new post
+            </Link>
+          </Button>
+        </Grid>
         <Card sx={{ width: 800, display: "inline-block" }}>
           <CardMedia
             sx={{ height: 400 }}
