@@ -12,7 +12,6 @@ import { Link } from "react-router-dom";
 import Loader from "../../../components/loader";
 import { useActions } from "../../../hooks/useActions";
 import { useTypedSelector } from "../../../hooks/useTypedSelector";
-import { getAllPosts } from "../../../services/post-api-service";
 
 const GetAllPosts: React.FC = () => {
   const { GetAllPosts } = useActions();
@@ -28,8 +27,8 @@ const GetAllPosts: React.FC = () => {
 
   const rows = posts.map((post: any) => {
     return (
-      <Box sx={{ flexGrow: 1, textAlign: "center", mb: 6 }}>
-        <Card sx={{ width: 800, display: "inline-block" }} key={post.id}>
+      <Box key={post.id} sx={{ flexGrow: 1, textAlign: "center", mb: 6 }}>
+        <Card sx={{ width: 800, display: "inline-block" }}>
           <CardMedia
             sx={{ height: 400 }}
             image={post.Image}
