@@ -1,5 +1,5 @@
 export interface CategoryState {
-  categories: any;
+  categories: [];
   message: null | string;
   loading: boolean;
   error: null | string;
