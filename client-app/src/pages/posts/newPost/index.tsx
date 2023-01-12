@@ -46,10 +46,10 @@ const AddNewPost: any = () => {
 
   const { loading } = store;
 
-  // const { AddNewArticle, LoadCategories } = useActions();
+  const { GetAllCategories } = useActions();
 
   React.useEffect(() => {
-    // LoadCategories();
+    GetAllCategories();
   }, []);
 
   const handleSubmit = async (values: FormValues) => {
@@ -65,12 +65,6 @@ const AddNewPost: any = () => {
       Image: values.Image,
     };
   };
-
-  console.log("categories ", categories);
-  const category = categories.map((item) => {
-    console.log("item ", item);
-    return item;
-  });
 
   return (
     <Container component="main">
@@ -144,11 +138,13 @@ const AddNewPost: any = () => {
                   onChange={handleChange}
                   label="Category"
                 >
-                  {/* {categories.map(category => (
-                    console.log("Categories ", category)
-                    // <MenuItem>{category.Name}</MenuItem>
-                  )} */}
-                  {/* {category} */}
+                  {categories.map((item: any) => {
+                    return (
+                      <MenuItem id={item.id} value={item.id}>
+                        {item.Name}
+                      </MenuItem>
+                    );
+                  })}
                 </Select>
               </FormControl>
 
