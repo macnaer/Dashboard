@@ -4,15 +4,15 @@ const db = require("../config/database");
 
 const Post = db.define("Posts", {
   Title: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING(),
     allowNull: false,
   },
   ShortDescription: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING(),
     allowNull: false,
   },
   Description: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING(),
     allowNull: false,
   },
   Image: {

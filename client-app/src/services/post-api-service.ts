@@ -17,10 +17,30 @@ const requests = {
 
 const Post = {
   getAllPosts: () => requests.get(`/getAllPosts`),
+  addNewPost: (newPost: any) => requests.post(`/createPost`, newPost),
 };
 
 export async function getAllPosts() {
   const data = await Post.getAllPosts()
+    .then((responce: any) => {
+      const { Message, IsSuccess, IsAuth, Errors, Token, Payload } = responce;
+      return {
+        Message,
+        IsSuccess,
+        IsAuth,
+        Errors,
+        Token,
+        Payload,
+      };
+    })
+    .catch((error: any) => {
+      return error.response.data;
+    });
+  return data;
+}
+
+export async function addNewPost(newPost: any) {
+  const data = await Post.addNewPost(newPost)
     .then((responce: any) => {
       const { Message, IsSuccess, IsAuth, Errors, Token, Payload } = responce;
       return {

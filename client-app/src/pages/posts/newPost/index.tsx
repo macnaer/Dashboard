@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -46,7 +46,9 @@ const AddNewPost: any = () => {
 
   const { loading } = store;
 
-  const { GetAllCategories } = useActions();
+  const [isRedirect, SetIsRedirect] = useState(false);
+
+  const { GetAllCategories, AddNewPosts } = useActions();
 
   React.useEffect(() => {
     GetAllCategories();
@@ -64,7 +66,14 @@ const AddNewPost: any = () => {
 
       Image: values.Image,
     };
+
+    AddNewPosts(newArticle);
+    SetIsRedirect(true);
   };
+
+  if (isRedirect) {
+    return <Navigate to={"/dashboard/posts"} />;
+  }
 
   return (
     <Container component="main">
@@ -155,7 +164,7 @@ const AddNewPost: any = () => {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                {loading ? "Loading..." : "Add"}
+                {loading ? "Add" : "Loading..."}
               </Button>
             </Box>
           )}

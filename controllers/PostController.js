@@ -2,6 +2,7 @@ const Post = require("../data/models/Post");
 const ServiceResponce = require("../services/ServiceResponce");
 
 exports.createPost = async (req, res, next) => {
+  console.log("createPost ", req.body);
   try {
     const post = await Post.findOne({ where: { Title: req.body.Title } });
     if (!post) {
