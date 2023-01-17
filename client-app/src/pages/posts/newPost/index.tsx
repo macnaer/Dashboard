@@ -72,7 +72,7 @@ const AddNewPost: any = () => {
   };
 
   if (isRedirect) {
-    return <Navigate to={"/dashboard/posts"} />;
+    return <Navigate to={"/dashboard"} />;
   }
 
   return (
