@@ -31,7 +31,6 @@ exports.getAllCategories = async (req, res, next) => {
 };
 
 exports.updateCategory = async (req, res, next) => {
-  console.log(req.body);
   const id = req.body.id;
   const Name = req.body.name;
   const updatedCategory = {
@@ -69,12 +68,10 @@ exports.updateCategory = async (req, res, next) => {
 };
 
 exports.deleteCategory = async (req, res, next) => {
-  console.log("deleteCategory ", req.body);
   const { id } = req.body;
   try {
     const category = await Category.findOne({ where: { id: req.body.id } });
     if (category) {
-      console.log("category ===> ", category);
       const deletedUser = await Category.destroy({
         where: { id: req.body.id },
       });
@@ -114,6 +111,7 @@ exports.createCategory = async (req, res, next) => {
         Name,
       });
       await newCategory.save();
+      const allCategories = await Category.findAll();
       res
         .status(200)
         .json(
@@ -122,7 +120,7 @@ exports.createCategory = async (req, res, next) => {
             null,
             null,
             true,
-            category
+            allCategories
           )
         );
     } else {
@@ -147,7 +145,6 @@ exports.createCategory = async (req, res, next) => {
 
 exports.getCategoryById = async (req, res, next) => {
   const { id } = req.body;
-  console.log("getCategoryById ", id);
   try {
     const category = await Category.findOne({
       where: { id: id },

@@ -27,7 +27,6 @@ const CategoryDetails: React.FC = () => {
     (store) => store.CategoryReducer
   );
 
-  console.log(selectedCategory);
   const { UpdateCategory } = useActions();
 
   initialValues.name = selectedCategory.Name;

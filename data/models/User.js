@@ -1,7 +1,7 @@
 const { Sequelize } = require("sequelize");
 const db = require("../config/database");
 
-const User = db.define("Users", {
+const User = db.define("User", {
   Name: {
     type: Sequelize.STRING,
     allowNull: true,

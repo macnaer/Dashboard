@@ -42,7 +42,6 @@ export const CreateCategory = (category: any) => {
     try {
       dispatch({ type: CategoryActionTypes.START_REQUEST });
       const data = await createCategory(category);
-      console.log(data);
       if (!data.IsSuccess) {
         dispatch({
           type: CategoryActionTypes.FINISH_REQUEST,
@@ -52,7 +51,7 @@ export const CreateCategory = (category: any) => {
       } else {
         dispatch({
           type: CategoryActionTypes.CATEGORY_UPDATED,
-          payload: data.Message,
+          payload: data,
         });
         toast.success(data.Message);
       }

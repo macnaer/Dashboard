@@ -18,6 +18,7 @@ const Categories: React.FC = () => {
   const { categories, loading } = useTypedSelector(
     (store) => store.CategoryReducer
   );
+
   const [isRedirect, setIsRedirect] = useState(false);
 
   useEffect(() => {

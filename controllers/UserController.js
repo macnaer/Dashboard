@@ -263,7 +263,6 @@ exports.getUserById = async (req, res, next) => {
 };
 
 exports.getUserByEmail = async (req, res, next) => {
-  console.log("getUserByEmail ", req.body);
   try {
     const user = await User.findOne({
       where: { email: req.body.email },
@@ -296,7 +295,6 @@ exports.getUserByEmail = async (req, res, next) => {
 };
 
 exports.deleteUserById = async (req, res, next) => {
-  console.log("deleteCategory ", req.body);
   const { id } = req.body;
   try {
     const user = await User.findOne({ where: { id: req.body.id } });

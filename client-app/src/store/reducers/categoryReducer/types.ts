@@ -17,7 +17,7 @@ export enum CategoryActionTypes {
 
 interface CategoryUpdatedActions {
   type: CategoryActionTypes.CATEGORY_UPDATED;
-  payload: string;
+  payload: any;
 }
 interface SelectedCategoryActions {
   type: CategoryActionTypes.SELECT_CATEGORY;

@@ -2,7 +2,6 @@ const Post = require("../data/models/Post");
 const ServiceResponce = require("../services/ServiceResponce");
 
 exports.createPost = async (req, res, next) => {
-  console.log("createPost ", req.body);
   try {
     const post = await Post.findOne({ where: { Title: req.body.Title } });
     if (!post) {
@@ -105,9 +104,7 @@ exports.deletePost = async (req, res, next) => {
   const { id } = req.body;
   try {
     const post = await Post.findOne({ where: { id: id } });
-    console.log("Post -> ", post);
     if (post) {
-      console.log("post ===> ", post);
       await Post.destroy({
         where: { id: id },
       });
@@ -135,7 +132,6 @@ exports.deletePost = async (req, res, next) => {
 };
 
 exports.updatePost = async (req, res, next) => {
-  console.log(req.body);
   try {
     const updatedPost = {
       id: req.body.id,

@@ -15,7 +15,6 @@ export const GetAllPosts = () => {
         });
         toast.error(data.Message);
       } else {
-        console.log(data);
         dispatch({
           type: PostActionTypes.ALL_POSTS_LOADED,
           payload: data,
@@ -42,7 +41,6 @@ export const AddNewPosts = (newPost: any) => {
         });
         toast.error(data.Message);
       } else {
-        console.log(data);
         dispatch({
           type: PostActionTypes.ALL_POSTS_LOADED,
           payload: data,

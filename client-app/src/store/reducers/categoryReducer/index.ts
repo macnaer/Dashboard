@@ -38,7 +38,8 @@ const CategoryReducer = (
     case CategoryActionTypes.CATEGORY_UPDATED:
       return {
         ...state,
-        message: action.payload,
+        message: action.payload.Message,
+        categories: action.payload.Payload,
       };
     default:
       return state;
