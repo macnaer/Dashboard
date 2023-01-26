@@ -7,6 +7,5 @@ export const AddPostsSchema = Yup.object().shape({
   Description: Yup.string().required().label("Description"),
 
   CategoryId: Yup.string().required().label("CategoryId"),
-
-  Image: Yup.string().label("Image URL"),
+  Image: Yup.string().label("Image"),
 });

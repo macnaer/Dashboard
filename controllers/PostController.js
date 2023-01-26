@@ -1,7 +1,27 @@
 const Post = require("../data/models/Post");
 const ServiceResponce = require("../services/ServiceResponce");
 
+const path = require("path");
+const fs = require("fs");
+
+function decode_base64(base64str) {
+  const filename = new Date().toISOString() + ".png";
+  const imgPath = path.join(__dirname, "..", "/uploads/", filename);
+
+  console.log(imgPath);
+
+  // Errors
+  // let buff = new Buffer(base64str, "base64");
+  // fs.writeFileSync(imgPath, buff);
+  return filename;
+}
+
 exports.createPost = async (req, res, next) => {
+  // console.log(
+  //   "==============================================> ",
+  //   req.body.Image
+  // );
+  const file = decode_base64(req.body.Image);
   try {
     const post = await Post.findOne({ where: { Title: req.body.Title } });
     if (!post) {
@@ -10,7 +30,7 @@ exports.createPost = async (req, res, next) => {
         ShortDescription: req.body.ShortDescription,
         Description: req.body.Description,
         CategoryId: req.body.CategoryId,
-        Image: req.body.Image,
+        Image: file,
       }).save();
       res
         .status(200)
